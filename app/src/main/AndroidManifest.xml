@@ -13,7 +13,7 @@
         android:theme="@style/Theme.OPuncture"
         tools:targetApi="31">
         <activity
-            android:name=".user.authentication.LoginActivity"
+            android:name=".user.authentication.AuthActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
