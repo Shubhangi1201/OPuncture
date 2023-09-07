@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.opuncture.user.authentication.fragments.LoginFragment"
+        android:name="com.example.opuncture.user.authentication.fragments.PhoneAuthFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_phone_auth" >
 
         <action
             android:id="@+id/action_loginFragment_to_loginOtpFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginOtpFragment"
-        android:name="com.example.opuncture.user.authentication.fragments.LoginOtpFragment"
+        android:name="com.example.opuncture.user.authentication.fragments.OtpVerificationFragment"
         android:label="fragment_login_otp"
-        tools:layout="@layout/fragment_login_otp" />
+        tools:layout="@layout/fragment_otp_verification" />
 </navigation>

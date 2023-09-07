@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.example.opuncture.R
 
 
-class LoginFragment : Fragment() {
+class PhoneAuthFragment : Fragment() {
     private lateinit var navController : NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_phone_auth, container, false)
 
         val btn = view.findViewById<Button>(R.id.LoginBtn)
 

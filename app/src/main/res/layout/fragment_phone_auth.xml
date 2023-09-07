@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.authentication.fragments.LoginFragment">
+    tools:context=".user.authentication.fragments.PhoneAuthFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:id="@+id/LoginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="120dp"
+            android:layout_marginEnd="148dp"
             android:layout_marginBottom="128dp"
             android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
