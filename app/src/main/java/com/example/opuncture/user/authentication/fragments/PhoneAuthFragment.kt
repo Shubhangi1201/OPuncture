@@ -10,11 +10,13 @@ import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.opuncture.R
+import com.google.firebase.auth.FirebaseAuth
 
 
 class PhoneAuthFragment : Fragment() {
     private lateinit var navController : NavController
 
+    private lateinit var auth: FirebaseAuth
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,6 +33,8 @@ class PhoneAuthFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_phone_auth, container, false)
 
         val btn = view.findViewById<Button>(R.id.LoginBtn)
+        auth = FirebaseAuth.getInstance()
+
 
         btn.setOnClickListener{
             navController.navigate(R.id.action_loginFragment_to_loginOtpFragment)
