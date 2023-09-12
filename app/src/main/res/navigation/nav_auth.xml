@@ -28,5 +28,7 @@
         android:id="@+id/loginOtpFragment"
         android:name="com.example.opuncture.user.authentication.fragments.OtpVerificationFragment"
         android:label="fragment_login_otp"
-        tools:layout="@layout/fragment_otp_verification" />
+        tools:layout="@layout/fragment_otp_verification" >
+        <argument android:name="LoginPhoneNumber" />
+    </fragment>
 </navigation>

@@ -35,16 +35,20 @@ class OtpVerificationFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_otp_verification, container, false)
         val phoneNumber = "+919702212438"
+        val phone = requireArguments().getString("LoginPhoneNumber")
+
         auth = FirebaseAuth.getInstance()
 
         val et = view.findViewById<EditText>(R.id.OTPet)
         val btn = view.findViewById<Button>(R.id.verifyBtn)
 
-        if(phoneNumber!= null){
-            sendVerificationCode(phoneNumber)
+        if(phone!= null){
+            sendVerificationCode(phone)
+            Toast.makeText(context, "phone number is " + phone, Toast.LENGTH_SHORT).show()
         }else{
 
         }
+
 
 
         btn.setOnClickListener{

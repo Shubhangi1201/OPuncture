@@ -2,4 +2,5 @@
     <string name="app_name">OPuncture</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="s2_privacy_policy">By continuing, you agree to Opuncture\'s Terms of Service and Privacy Policy</string>
 </resources>
