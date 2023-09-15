@@ -34,17 +34,17 @@ class OtpVerificationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_otp_verification, container, false)
-        val phoneNumber = "+919702212438"
-        val phone = requireArguments().getString("LoginPhoneNumber")
-
-        auth = FirebaseAuth.getInstance()
 
         val et = view.findViewById<EditText>(R.id.OTPet)
         val btn = view.findViewById<Button>(R.id.verifyBtn)
 
-        if(phone!= null){
-            sendVerificationCode(phone)
-            Toast.makeText(context, "phone number is " + phone, Toast.LENGTH_SHORT).show()
+        auth = FirebaseAuth.getInstance()
+        val phoneNumber = requireArguments().getString("LoginPhoneNumber")
+
+
+        if(phoneNumber!= null){
+            sendVerificationCode(phoneNumber)
+            Toast.makeText(context, "phone number is " + phoneNumber, Toast.LENGTH_SHORT).show()
         }else{
 
         }
@@ -54,7 +54,7 @@ class OtpVerificationFragment : Fragment() {
         btn.setOnClickListener{
             verifyOTPCode(et.text.toString())
         }
-        auth = FirebaseAuth.getInstance()
+
 
         return view
     }
@@ -76,12 +76,6 @@ class OtpVerificationFragment : Fragment() {
     private val callbacks  = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            // This callback will be invoked in two situations:
-            // 1 - Instant verification. In some cases the phone number can be instantly
-            //     verified without needing to send or enter a verification code.
-            // 2 - Auto-retrieval. On some devices Google Play services can automatically
-            //     detect the incoming verification SMS and perform verification without
-            //     user action.
             Log.d(ContentValues.TAG, "onVerificationCompleted:$credential")
             val code: String? = credential.smsCode
             if(!code.isNullOrBlank()){
@@ -92,36 +86,27 @@ class OtpVerificationFragment : Fragment() {
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            // This callback is invoked in an invalid request for verification is made,
-            // for instance if the the phone number format is not valid.
             Log.w(ContentValues.TAG, "onVerificationFailed", e)
 
             if (e is FirebaseAuthInvalidCredentialsException) {
-                // Invalid request
+                Toast.makeText(context, "FirebaseAuthInvalidCredentialException" + e.toString(), Toast.LENGTH_LONG).show()
             } else if (e is FirebaseTooManyRequestsException) {
-                // The SMS quota for the project has been exceeded
+                Toast.makeText(context, "FirebaseTooManyRequestExeception : "  + e.toString(), Toast.LENGTH_LONG).show()
             } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
-                // reCAPTCHA verification attempted with null Activity
+                Toast.makeText(context, "FirebaseAuthMissingActivityForRecaptcha : "  + e.toString(), Toast.LENGTH_LONG).show()
             }
 
             Toast.makeText(context, "verification failed " + e.toString(), Toast.LENGTH_SHORT).show()
 
-
-            // Show a message and update the UI
         }
 
         override fun onCodeSent(
             verificationId: String,
             token: PhoneAuthProvider.ForceResendingToken,
         ) {
-            // The SMS verification code has been sent to the provided phone number, we
-            // now need to ask the user to enter the code and then construct a credential
-            // by combining the code with a verification ID.
             Log.d(ContentValues.TAG, "onCodeSent:$verificationId")
             Toast.makeText(context, "code sent successfully ", Toast.LENGTH_SHORT).show()
 
-
-            // Save verification ID and resending token so we can use them later
             storedVerificationId = verificationId
 
         }
@@ -142,7 +127,6 @@ class OtpVerificationFragment : Fragment() {
                     Toast.makeText(context, "failed failed failed", Toast.LENGTH_SHORT).show()
 
                 }
-
             }
     }
 
