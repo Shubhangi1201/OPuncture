@@ -27,6 +27,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:windowBackground">@drawable/splash_background_theme</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
         <!-- Customize your theme here. -->
     </style>
 </resources>

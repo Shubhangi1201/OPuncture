@@ -1,5 +1,6 @@
 package com.example.opuncture.user.authentication.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
@@ -7,9 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.opuncture.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -26,8 +32,11 @@ class OtpVerificationFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var storedVerificationId: String
+    private lateinit var progressBar: ProgressBar
+    private lateinit var btn: Button
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,11 +44,23 @@ class OtpVerificationFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_otp_verification, container, false)
 
-        val et = view.findViewById<EditText>(R.id.OTPet)
-        val btn = view.findViewById<Button>(R.id.verifyBtn)
-
         auth = FirebaseAuth.getInstance()
-        val phoneNumber = requireArguments().getString("LoginPhoneNumber")
+        
+        val phoneNumber = "+91" + requireArguments().getString("LoginPhoneNumber")
+        
+        val et = view.findViewById<EditText>(R.id.OTPet)
+        val errorTV = view.findViewById<TextView>(R.id.errorIncorrectOTPTV)
+        val resendTV = view.findViewById<TextView>(R.id.ResendOTPtv)
+        btn = view.findViewById<Button>(R.id.verifyOtpBtn)
+        val VerifyOTPtv = view.findViewById<TextView>(R.id.verifyHeadingTV)
+        progressBar = view.findViewById(R.id.verify_progressBar)
+
+        VerifyOTPtv.text = "Verify the OTP sent to $phoneNumber"
+        
+        resendTV.setOnClickListener{
+            Toast.makeText(context, "OTP will resend", Toast.LENGTH_SHORT).show()
+        }
+
 
 
         if(phoneNumber!= null){
@@ -53,6 +74,7 @@ class OtpVerificationFragment : Fragment() {
 
         btn.setOnClickListener{
             verifyOTPCode(et.text.toString())
+            showProgressBar()
         }
 
 
@@ -89,14 +111,15 @@ class OtpVerificationFragment : Fragment() {
             Log.w(ContentValues.TAG, "onVerificationFailed", e)
 
             if (e is FirebaseAuthInvalidCredentialsException) {
-                Toast.makeText(context, "FirebaseAuthInvalidCredentialException" + e.toString(), Toast.LENGTH_LONG).show()
+
             } else if (e is FirebaseTooManyRequestsException) {
-                Toast.makeText(context, "FirebaseTooManyRequestExeception : "  + e.toString(), Toast.LENGTH_LONG).show()
+
             } else if (e is FirebaseAuthMissingActivityForRecaptchaException) {
-                Toast.makeText(context, "FirebaseAuthMissingActivityForRecaptcha : "  + e.toString(), Toast.LENGTH_LONG).show()
+
             }
 
             Toast.makeText(context, "verification failed " + e.toString(), Toast.LENGTH_SHORT).show()
+            hideProgressBar()
 
         }
 
@@ -123,11 +146,29 @@ class OtpVerificationFragment : Fragment() {
                 if(task.isSuccessful){
                     Toast.makeText(context, "authentication successful", Toast.LENGTH_SHORT).show()
 
+                    hideProgressBar()
+
                 }else{
                     Toast.makeText(context, "failed failed failed", Toast.LENGTH_SHORT).show()
-
+                    hideProgressBar()
                 }
             }
     }
+
+
+
+    private fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
+
+
+
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+
+
+    }
+
 
 }

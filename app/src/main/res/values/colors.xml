@@ -11,4 +11,6 @@
     <color name="greyWhite">#eeeeee</color>
     <color name="yellow">#ffca22</color>
     <color name="grey">#414042</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000EE</color>
 </resources>
